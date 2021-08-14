@@ -6,11 +6,15 @@ type CurrentConditionsDisplay struct {
 	temperature float32
 	humidity float32
   pressure float32
-	WeatherStation *WeatherStation
+	weatherStation *WeatherStation
 }
 
-func newCurrentConditionsDisplay() *CurrentConditionsDisplay {
-	return &CurrentConditionsDisplay{}
+func newCurrentConditionsDisplay(ws *WeatherStation) *CurrentConditionsDisplay {
+	ccd := &CurrentConditionsDisplay{
+		weatherStation: ws,
+	}
+	ws.addObserver(ccd)
+	return ccd
 }
 
 func (ccd *CurrentConditionsDisplay) update(temperature float32, humidity float32, pressure float32) {
