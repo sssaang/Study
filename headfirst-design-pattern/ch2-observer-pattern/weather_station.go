@@ -43,6 +43,7 @@ func (ws *WeatherStation) notifyObserver() {
 		for _, obs := range ws.observers {
 			obs.update(ws.temperature, ws.humidity ,ws.pressure)
 		}
+		ws.changed = false
 	}
 }
 
