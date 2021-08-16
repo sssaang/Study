@@ -1,11 +1,18 @@
 package main
 
+import "fmt"
+
 func main() {
 	espressoWithMochaSoy := &Soy{
 		beverage: &Mocha {
 			beverage: &Houseblend{},
 		},
 	}
-	espressoWithMochaSoy.description()
-	espressoWithMochaSoy.cost()
+	fmt.Println(espressoWithMochaSoy.description(), "$", espressoWithMochaSoy.cost())
+	houseBlendWithMochaMilk := &Mocha{
+		beverage: &Milk{
+			beverage: &Houseblend{},
+		},
+	}
+	fmt.Println(houseBlendWithMochaMilk.description(), "$", houseBlendWithMochaMilk.cost())
 }
