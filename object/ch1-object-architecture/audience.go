@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Audience struct {
 	bag *Bag
 }
@@ -16,10 +18,11 @@ func (a *Audience) showInvitation() *Invitation {
 
 func (a *Audience) buyTicket(ticket *Ticket, isInvited bool) error {
 	if !isInvited {
+		fmt.Println("the audience is not invited")
 		err := a.bag.minusCash(ticket.getPrice())
 		if err != nil {
 			return err
-		}	
+		}
 	}
 	
 	a.bag.setTicket(ticket)

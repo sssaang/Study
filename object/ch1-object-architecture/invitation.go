@@ -1,20 +1,21 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 type Invitation struct {
-	exp_date time.Time
+	inv_date time.Time
 }
 
-func newInvitation(exp_date string) (*Invitation, error) {
+func newInvitation(inv_dat_str string) (*Invitation, error) {
 	layout := "2006-Jan-02"
-	inv_date, err := time.Parse(layout, exp_date)
+	inv_date, err := time.Parse(layout, inv_dat_str)
 	if err != nil {
 		return nil, err
 	}
-	
 	return &Invitation{
-		exp_date: inv_date,
+		inv_date: inv_date,
 	}, nil
 }
 

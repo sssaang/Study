@@ -29,6 +29,9 @@ func validateInvitation(inv *Invitation) bool {
 	if inv == nil {
 		return false
 	}
-	today := time.Now()
-	return !today.Before(inv.exp_date) && !today.After(inv.exp_date)
+	layout := "2006-Jan-02"
+	todayString := time.Now().Format(layout)
+	today, _ := time.Parse(layout, todayString)
+
+	return !today.Before(inv.inv_date) && !today.After(inv.inv_date)
 }
