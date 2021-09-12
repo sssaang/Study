@@ -16,7 +16,7 @@ func (a *Audience) showInvitation() *Invitation {
 
 func (a *Audience) buyTicket(ticket *Ticket, isInvited bool) error {
 	if !isInvited {
-		err := a.bag.minusCash(ticket.price)
+		err := a.bag.minusCash(ticket.getPrice())
 		if err != nil {
 			return err
 		}	

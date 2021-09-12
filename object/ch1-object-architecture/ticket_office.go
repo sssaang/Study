@@ -9,7 +9,7 @@ func newTicketOffice() *TicketOffice {
 	const NUM_TICKETS = 10
 	newTickets := []*Ticket{}
 
-	for i:=0; i<len(newTickets); i++ {
+	for i:=0; i<NUM_TICKETS; i++ {
 		newTickets = append(newTickets, newTicket())
 	}
 	return &TicketOffice{

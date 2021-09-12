@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
-
 func main() {
-    fmt.Println("Hello, World!")
+	theater := newTheater()
+	audience := newAudience(newBag(10.0, nil, nil))
+	theater.enter(audience)
 }

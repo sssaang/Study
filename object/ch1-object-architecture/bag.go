@@ -10,6 +10,14 @@ type Bag struct {
 	invitation *Invitation
 }
 
+func newBag(cash float32, ticket *Ticket, invitation *Invitation) *Bag {
+	return &Bag{
+		cash: cash,
+		ticket: ticket,
+		invitation: invitation,
+	}
+}
+
 func (b *Bag) minusCash(ticketPrice float32) error {
 	if b.cash < ticketPrice {
 		return errors.New("not enough cash")
