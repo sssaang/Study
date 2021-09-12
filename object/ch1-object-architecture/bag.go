@@ -27,14 +27,6 @@ func (b *Bag) minusCash(ticketPrice float32) error {
 	return nil
 }
 
-func (b *Bag) checkInvitation() bool {
-	if b.invitation == nil || b.invitation.validateInvitation() {
-		return false
-	}
-
-	return true
-}
-
 func (b *Bag) setTicket(ticket *Ticket) {
 	b.ticket = ticket
 }

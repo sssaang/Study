@@ -26,6 +26,9 @@ func (ts *TicketSeller) sellTicketToAudience(audience *Audience) error {
 }
 
 func validateInvitation(inv *Invitation) bool {
+	if inv == nil {
+		return false
+	}
 	today := time.Now()
 	return !today.Before(inv.exp_date) && !today.After(inv.exp_date)
 }
