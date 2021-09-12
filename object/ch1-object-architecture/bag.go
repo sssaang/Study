@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"time"
 )
 
 type Bag struct {
@@ -21,12 +20,7 @@ func (b *Bag) minusCash(ticketPrice float32) error {
 }
 
 func (b *Bag) checkInvitation() bool {
-	if b.ticket == nil {
-		return false
-	}
-
-	today := time.Now()
-	if today.Before(b.invitation.exp_date) || today.After(b.invitation.exp_date) {
+	if b.invitation == nil || b.invitation.validateInvitation() {
 		return false
 	}
 

@@ -17,3 +17,8 @@ func newInvitation(exp_date string) (*Invitation, error) {
 		exp_date: inv_date,
 	}, nil
 }
+
+func (inv *Invitation) validateInvidation() bool {
+	today := time.Now()
+	return !today.Before(inv.exp_date) && !today.After(inv.exp_date)
+}
