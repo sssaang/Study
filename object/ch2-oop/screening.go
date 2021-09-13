@@ -18,6 +18,14 @@ func NewScreening(movie *Movie, sequence int, screenTime time.Time) *Screening {
 	}
 }
 
+func (s *Screening) MakeReservation(numAudience int, audience *Audience) *Reservation {
+	return NewReservation(audience, numAudience, s.calculateTotal(numAudience), s)
+}
+
+func (s *Screening) calculateTotal(numAudience int) float32 {
+	return s.movie.GetFee(s) * float32(numAudience)
+}
+
 func (s *Screening) GetScreenTime() time.Time {
 	return s.screenTime
 }

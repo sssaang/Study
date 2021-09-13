@@ -14,6 +14,6 @@ func NewMovie(name string, fee float32, discountPolicy *DiscountPolicy) *Movie {
 	}
 }
 
-func (m *Movie) GetFee() float32 {
-	return m.fee
+func (m *Movie) GetFee(screenning *Screening) float32 {
+	// return m.discountPolicy.getDiscount(m.fee, screenTime, sequence)
 }
