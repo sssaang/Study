@@ -60,7 +60,12 @@ func main() {
 	res2 := titanic10am.MakeReservation(1, aud2)
 	res3 := avatar12pm.MakeReservation(2, aud3)
 
+	// should print 38.97 as no discount conditions matched
 	fmt.Println(res1.fee)
+
+	// should print 10.32 as the screen time stays between the period discount condition of 9 ~ 12  
 	fmt.Println(res2.fee)
+
+	// should print 31.98 as no discount conditions matched
 	fmt.Println(res3.fee)
 }
