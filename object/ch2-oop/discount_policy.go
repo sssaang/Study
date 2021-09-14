@@ -56,3 +56,14 @@ func (pdp *PercentDiscountPolicy) CalculateDiscountAmount(screening *Screening) 
 
 	return 0.0
 }
+
+type NoDiscountPolicy struct {
+}
+
+func NewNoDiscountPolicy() (*NoDiscountPolicy) {
+	return &NoDiscountPolicy{}
+}
+
+func (ndp NoDiscountPolicy) CalculateDiscountAmount(screening *Screening) float32 {
+	return 0.0
+}
