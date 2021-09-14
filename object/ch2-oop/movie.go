@@ -3,10 +3,10 @@ package main
 type Movie struct {
 	name string
 	fee float32
-	discountPolicy *DiscountPolicy	
+	discountPolicy DiscountPolicy	
 }
 
-func NewMovie(name string, fee float32, discountPolicy *DiscountPolicy) *Movie {
+func NewMovie(name string, fee float32, discountPolicy DiscountPolicy) *Movie {
 	return &Movie{
 		name: name, 
 		fee: fee,
@@ -14,6 +14,10 @@ func NewMovie(name string, fee float32, discountPolicy *DiscountPolicy) *Movie {
 	}
 }
 
-func (m *Movie) GetFee(screenning *Screening) float32 {
-	// return m.discountPolicy.getDiscount(m.fee, screenTime, sequence)
+func (m *Movie) GetFinalFee(screening *Screening) float32 {
+	return m.fee - m.discountPolicy.CalculateDiscountAmount(screening)
+}
+
+func (m *Movie) GetFee() float32 {
+	return m.fee
 }

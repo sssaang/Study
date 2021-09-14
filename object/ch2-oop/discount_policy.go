@@ -2,25 +2,36 @@ package main
 
 import "errors"
 
-type DiscountPolicy struct {
-	discountConditions []DiscountCondition
+type DiscountPolicy interface {
+	CalculateDiscountAmount(screening *Screening) float32
 }
 
 type AmountDiscountPolicy struct {
-	DiscountPolicy
+	discountConditions []DiscountCondition
 	amount float32
 }
 
 func NewAmountDiscountPolicy(amount float32, discountConditions []DiscountCondition) *AmountDiscountPolicy {
 	adp := &AmountDiscountPolicy{
 		amount: amount,
+		discountConditions: discountConditions,
 	}
-	adp.discountConditions = discountConditions
+	
 	return adp
 }
 
+func (adp *AmountDiscountPolicy) CalculateDiscountAmount(screening *Screening) float32 {
+	for _, dc := range adp.discountConditions {
+		if dc.isSatisfied(screening) {
+			return adp.amount
+		}
+	}
+
+	return 0.0
+}
+
 type PercentDiscountPolicy struct {
-	DiscountPolicy
+	discountConditions []DiscountCondition
 	percent float32
 }
 
@@ -30,7 +41,18 @@ func NewPercentDiscountPolicy(percent float32, discountConditions []DiscountCond
 	}
 	pdp := &PercentDiscountPolicy{
 		percent: percent,
+		discountConditions: discountConditions,
 	}
-	pdp.discountConditions = discountConditions
+	
 	return pdp, nil
+}
+
+func (pdp *PercentDiscountPolicy) CalculateDiscountAmount(screening *Screening) float32 {
+	for _, dc := range pdp.discountConditions {
+		if dc.isSatisfied(screening) {
+			return screening.GetMovieFee() * pdp.percent
+		}
+	}
+
+	return 0.0
 }

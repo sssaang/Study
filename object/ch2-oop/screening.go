@@ -23,7 +23,11 @@ func (s *Screening) MakeReservation(numAudience int, audience *Audience) *Reserv
 }
 
 func (s *Screening) calculateTotal(numAudience int) float32 {
-	return s.movie.GetFee(s) * float32(numAudience)
+	return s.movie.GetFinalFee(s) * float32(numAudience)
+}
+
+func (s *Screening) GetMovieFee() float32 {
+	return s.movie.GetFee()
 }
 
 func (s *Screening) GetScreenTime() time.Time {
