@@ -31,7 +31,7 @@ internal class BankControllerTest {
 
         val accountNumber = "123213"
 
-        mockMvc.get("api/banks/$accountNumber")
+        mockMvc.get("/api/banks/$accountNumber")
             .andDo { print() }
             .andExpect {
                 status { isOk() }
