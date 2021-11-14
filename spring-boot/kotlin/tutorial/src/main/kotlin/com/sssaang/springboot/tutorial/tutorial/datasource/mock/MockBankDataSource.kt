@@ -9,7 +9,7 @@ class MockBankDataSource: BankDataSource {
     private val banks: Collection<Bank> = listOf(
         Bank("123213", 0.1, 122),
         Bank("4251", 2.1, 12),
-                Bank("1231251", 5.1, 12)
+        Bank("1231251", 5.1, 12)
     )
     override fun retrieveBanks(): Collection<Bank> = banks
 }
