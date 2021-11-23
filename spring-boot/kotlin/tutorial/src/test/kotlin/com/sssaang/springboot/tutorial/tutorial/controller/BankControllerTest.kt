@@ -80,10 +80,14 @@ internal class BankControllerTest {
                 contentType = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(newBank)
             }
-             
+
             performPost.andDo { print() }
                 .andExpect {
                     status { isCreated() }
+                    content { contentType(MediaType.APPLICATION_JSON)}
+                    jsonPath("$.accountNumber") { value("acc123") }
+                    jsonPath("$.trust") { value(31.415) }
+                    jsonPath("$.transactionFee") { value(2) }
                 }
         }
     }

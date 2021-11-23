@@ -19,4 +19,8 @@ class BankController(private val service: BankService) {
 
     @GetMapping("/{accountNumber}")
     fun getBank(@PathVariable accountNumber: String): Bank = service.getBank(accountNumber)
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addBank(@RequestBody bank: Bank): Bank = service.addBank(bank)
 }
