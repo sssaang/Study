@@ -125,6 +125,19 @@ internal class BankControllerTest {
                 .andDo { print() }
                 .andExpect {
                     status { isOk() }
+                    content {
+                        contentType(MediaType.APPLICATION_JSON )
+                        json(objectMapper.writeValueAsString(updatedBank))
+                    }
+                }
+
+            mockMvc.get("/api/banks/${updatedBank.accountNumber}")
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content {
+                        json(objectMapper.writeValueAsString(updatedBank))
+                    }
                 }
         }
     }
