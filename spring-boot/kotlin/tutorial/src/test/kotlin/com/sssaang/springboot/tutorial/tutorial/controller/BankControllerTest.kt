@@ -84,10 +84,25 @@ internal class BankControllerTest {
             performPost.andDo { print() }
                 .andExpect {
                     status { isCreated() }
-                    content { contentType(MediaType.APPLICATION_JSON)}
+                    content { contentType(MediaType.APPLICATION_JSON) }
                     jsonPath("$.accountNumber") { value("acc123") }
                     jsonPath("$.trust") { value(31.415) }
                     jsonPath("$.transactionFee") { value(2) }
+                }
+        }
+
+        @Test
+        fun `should return BAD REQUEST if bank with given account number already exists`() {
+            val invalidBank = Bank("123213", 0.1, 122)
+
+            val performPost = mockMvc.post("/api/banks") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(invalidBank)
+            }
+
+            performPost.andDo { print() }
+                .andExpect {
+                    status { isBadRequest() }
                 }
         }
     }
