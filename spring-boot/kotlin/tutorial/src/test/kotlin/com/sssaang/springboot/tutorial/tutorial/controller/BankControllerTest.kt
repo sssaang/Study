@@ -90,6 +90,15 @@ internal class BankControllerTest {
                     jsonPath("$.trust") { value(31.415) }
                     jsonPath("$.transactionFee") { value(2) }
                 }
+
+            mockMvc.get("/api/banks/${newBank.accountNumber}")
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content {
+                        json(objectMapper.writeValueAsString(newBank))
+                    }
+                }
         }
 
         @Test
