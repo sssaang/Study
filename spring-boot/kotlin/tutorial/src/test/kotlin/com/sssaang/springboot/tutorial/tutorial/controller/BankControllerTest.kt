@@ -149,5 +149,20 @@ internal class BankControllerTest {
                     }
                 }
         }
+
+        @Test
+        fun `should return BAD REQUEST if bank with given account number does not exists`() {
+            val invalidBank = Bank("12", 0.1, 122)
+
+            val performPost = mockMvc.post("/api/banks") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(invalidBank)
+            }
+
+            performPost.andDo { print() }
+                .andExpect {
+                    status { isNotFound() }
+                }
+        }
     }
 }
