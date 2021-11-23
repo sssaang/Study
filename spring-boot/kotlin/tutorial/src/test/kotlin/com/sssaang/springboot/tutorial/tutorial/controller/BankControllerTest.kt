@@ -1,5 +1,7 @@
 package com.sssaang.springboot.tutorial.tutorial.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.sssaang.springboot.tutorial.tutorial.model.Bank
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.post
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -19,8 +22,11 @@ internal class BankControllerTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
+    @Autowired
+    lateinit var objectMapper: ObjectMapper
+
     @Nested
-    @DisplayName("getBanks()")
+    @DisplayName("GET /api/bank")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetBanks {
         @Test
@@ -35,7 +41,7 @@ internal class BankControllerTest {
     }
 
     @Nested
-    @DisplayName("getBank()")
+    @DisplayName("GET /api/bank/{accountNumber}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetBank {
         @Test
@@ -59,6 +65,26 @@ internal class BankControllerTest {
             mockMvc.get("/api/banks/${accountNumber}")
                 .andDo { print() }
                 .andExpect { status { isNotFound() } }
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /api/banks")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class PostBank {
+        @Test
+        fun `should add the new bank`() {
+            val newBank = Bank("acc123", 31.415, 2)
+
+            val performPost = mockMvc.post("/api/banks") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(newBank)
+            }
+             
+            performPost.andDo { print() }
+                .andExpect {
+                    status { isCreated() }
+                }
         }
     }
 }
